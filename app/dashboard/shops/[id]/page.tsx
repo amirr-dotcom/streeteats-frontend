@@ -114,6 +114,7 @@ export default function ShopManagementPage() {
           <ShopForm
             shopId={shop.id}
             initialData={{
+              id: shop.id,
               name: shop.name,
               description: shop.description || '',
               location: shop.location || '',

@@ -13,7 +13,7 @@ export const registerSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
   email: z.string().email('Invalid email address'),
   password: z.string().min(6, 'Password must be at least 6 characters'),
-  role: z.enum(['vendor', 'admin']).default('vendor'),
+  role: z.enum(['vendor', 'admin']),
 });
 
 export const shopSchema = z.object({
@@ -28,7 +28,7 @@ export const menuItemSchema = z.object({
   name: z.string().min(1, 'Menu item name is required'),
   description: z.string().optional(),
   price: z.number().min(0.01, 'Price must be greater than 0'),
-  isVeg: z.boolean().default(true),
+  isVeg: z.boolean(),
   imageUrl: z.string().url('Invalid URL').optional().or(z.literal('')),
   shopId: z.string().uuid('Invalid shop ID'),
 });

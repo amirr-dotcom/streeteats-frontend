@@ -101,6 +101,7 @@ export default function MenuItemManagementPage() {
             menuItemId={menuItem.id}
             shopId={menuItem.shop.id}
             initialData={{
+              id: menuItem.id,
               name: menuItem.name,
               description: menuItem.description || '',
               price: menuItem.price,

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import Link from 'next/link';
@@ -22,7 +22,7 @@ interface MenuItem {
   };
 }
 
-export default function MenuManagementPage() {
+function MenuManagementContent() {
   const { isAuthenticated, loading: authLoading } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -126,8 +126,16 @@ export default function MenuManagementPage() {
           <div className="mb-8">
             <MenuItemForm
               menuItemId={editingItem?.id}
-              shopId={shopId || undefined}
-              initialData={editingItem}
+              shopId={shopId || editingItem?.shop.id || undefined}
+              initialData={editingItem ? {
+                id: editingItem.id,
+                name: editingItem.name,
+                description: editingItem.description || '',
+                price: editingItem.price,
+                isVeg: editingItem.isVeg,
+                imageUrl: editingItem.imageUrl || '',
+                shopId: editingItem.shop.id,
+              } : undefined}
               onSuccess={handleFormSuccess}
               onCancel={handleCancel}
             />
@@ -227,6 +235,18 @@ export default function MenuManagementPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function MenuManagementPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center">
+        <div className="text-lg">Loading...</div>
+      </div>
+    }>
+      <MenuManagementContent />
+    </Suspense>
   );
 }
 

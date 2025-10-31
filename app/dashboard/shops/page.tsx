@@ -15,6 +15,7 @@ interface Shop {
   description: string | null;
   location: string | null;
   imageUrl: string | null;
+  qrCodeUrl: string | null;
   menuItems: Array<{ id: string }>;
   owner: {
     id: string;
@@ -121,7 +122,14 @@ export default function ShopsManagementPage() {
           <div className="mb-8">
             <ShopForm
               shopId={editingShop?.id}
-              initialData={editingShop}
+              initialData={editingShop ? {
+                id: editingShop.id,
+                name: editingShop.name,
+                description: editingShop.description || '',
+                location: editingShop.location || '',
+                imageUrl: editingShop.imageUrl || '',
+                qrCodeUrl: editingShop.qrCodeUrl || '',
+              } : undefined}
               onSuccess={handleFormSuccess}
               onCancel={handleCancel}
             />
