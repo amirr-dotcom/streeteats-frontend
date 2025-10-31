@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
+// Homepage for StreetEats - Digital Menus for Food Vendors
 export default function Home() {
   return (
     <div className="min-h-screen bg-white dark:from-gray-900 dark:via-gray-950 dark:to-gray-900">
